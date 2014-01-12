@@ -1,3 +1,7 @@
+//keyboard.h
+//By Michael Taboada
+//Provided under the unlicense
+//see UNLICENSE for details
 #include <allegro5/allegro5.h>
 
 

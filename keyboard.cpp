@@ -1,4 +1,8 @@
-include "keyboard.h"
+//keyboard.cpp
+//By Michael Taboada
+//Provided under the unlicense
+//see UNLICENSE for details
+#include "keyboard.h"
 
 keyboard::keyboard(void)
 {
@@ -23,7 +27,12 @@ keyboard::~keyboard(void)
 	al_destroy_event_queue(queue);
 }
 
-bool keyboard::poll(ALLEGRO_EVENT& event) {
+/**
+*Used to both update the keyboard class of key changes, and also to return any events to your code outside of the class.
+*Note that since more than one queue can be listening for keyboard events, this method is probably unnecessary.
+*@return Whether there was an event in the queue
+**/
+bool keyboard::poll(ALLEGRO_EVENT& event/**< [out] Any event that was dequeued on this call. Note that if there was no event in the queue, this value is undefined.**/) {
 	ALLEGRO_EVENT ev;
 	if(al_get_next_event(queue, &ev)) {
 		switch (ev.type) {
@@ -43,7 +52,11 @@ bool keyboard::poll(ALLEGRO_EVENT& event) {
 	}
 }
 
-bool keyboard::key_down(int key) {
+/**
+*Check if a key is down.
+*@return Whether the key is down.
+**/
+bool keyboard::key_down(int key/**< [in] The allegro keycode for the key you want to check.**/) {
 	if(key >= ALLEGRO_KEY_MAX || key < 0) {
 		return false;
 	}
@@ -56,7 +69,12 @@ bool keyboard::key_down(int key) {
 	}
 }
 
-bool keyboard::key_pressed(int key) {
+/**
+*Check whether a key is pressed.
+*Note that a key that was returned as pressed will not be returned as pressed until it is released and pressed again.
+*@return whether the key was pressed.
+**/
+bool keyboard::key_pressed(int key/**< [in] The allegro key constant for the key you want to check.**/) {
 	if(key >= ALLEGRO_KEY_MAX || key < 0) {
 		return false;
 	}
